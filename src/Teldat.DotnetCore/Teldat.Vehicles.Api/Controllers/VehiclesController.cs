@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Teldat.Vehicles.Api.Constraints;
 using Teldat.Vehicles.Domain.IServices;
 using Teldat.Vehicles.Domain.Models;
 
 namespace Teldat.Vehicles.Api.Controllers
 {
-    [Route("api/vehicles")]
+    [Route("api/[controller]")]    
+    // [ApiController]
     public class VehiclesController : ControllerBase
     {
         private readonly IVehicleService vehicleService;
@@ -26,12 +29,12 @@ namespace Teldat.Vehicles.Api.Controllers
         //}
 
         // GET https://localhost:5000/api/vehicles
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var vehicles = await vehicleService.Get();
-            return Ok(vehicles);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Get()
+        //{
+        //    var vehicles = await vehicleService.Get();
+        //    return Ok(vehicles);
+        //}
 
         // GET https://localhost:5000/api/vehicles/10
         [HttpGet("{id}", Name = "GetById")]
@@ -49,10 +52,30 @@ namespace Teldat.Vehicles.Api.Controllers
 
         // GET https://localhost:5000/api/vehicles/10/members
         [HttpGet("{vehicleId}/members")]
+        //[HttpGet]
+        //[Route("{vehicleId}/members")]
         public async Task<IActionResult> GetMembers(int vehicleId)
         {
             return Ok();
         }
+
+
+        // GET https://localhost:5000/api/vehicles?lat=58.43&lng=21.05&range=100
+
+        [HttpGet]
+        public async Task<IActionResult> Get([RequiredFromQuery] double lat, [RequiredFromQuery] double lng, double range = 100)
+        {
+            return Ok();
+        }
+
+        // GET https://localhost:5000/api/vehicles?lat=58.43&lng=21.05&range=100
+
+        //[HttpGet]
+        //public async Task<IActionResult> Get([FromQuery] Location location)
+        //{
+        //    return Ok();
+        //}
+
 
         // POST https://localhost:5000/api/vehicles
         [HttpPost]
@@ -89,6 +112,21 @@ namespace Teldat.Vehicles.Api.Controllers
             await vehicleService.Remove(id);
 
             return NoContent();
+        }
+
+        // POST https://localhost:5000/api/vehicles/upload
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload(IList<IFormFile> files)
+        {
+            foreach (var file in files)
+            {
+                // TODO: process file
+            }
+
+            long size = files.Sum(f => f.Length);
+
+            return Accepted(new { count = files.Count, size });
+
         }
     }
 }

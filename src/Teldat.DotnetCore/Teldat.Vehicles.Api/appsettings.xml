@@ -1,0 +1,5 @@
+﻿<configuration>
+  <Vehicles>   
+    <DefaultModel>Ferrari</DefaultModel>
+  </Vehicles>
+</configuration>

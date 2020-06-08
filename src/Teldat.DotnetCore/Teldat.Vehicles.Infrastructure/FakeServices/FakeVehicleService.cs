@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,18 @@ using Teldat.Vehicles.Domain.Models;
 
 namespace Teldat.Vehicles.Infrastructure.FakeServices
 {
+    public class FakeVehicleOptions
+    {
+        public int Count { get; set; }
+    }
+
     public class FakeVehicleService : IVehicleService
     {
         private readonly ICollection<Vehicle> vehicles;
 
-        public FakeVehicleService(Faker<Vehicle> faker)
+        public FakeVehicleService(Faker<Vehicle> faker, IOptions<FakeVehicleOptions> options)
         {
-            vehicles = faker.Generate(100);
+            vehicles = faker.Generate(options.Value.Count);
         }
 
         public Task Add(Vehicle vehicle)

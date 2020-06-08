@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Teldat.Vehicles.Domain.IServices;
 using Teldat.Vehicles.Domain.Models;
 using Teldat.Vehicles.Infrastructure.Fakers;
@@ -18,11 +19,24 @@ using Teldat.Vehicles.Infrastructure.FakeServices;
 
 namespace Teldat.Vehicles.Api
 {
+   
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        //public Startup(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
+
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false)
+                .AddXmlFile("appsettings.xml", optional: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -32,6 +46,11 @@ namespace Teldat.Vehicles.Api
         {
             services.AddSingleton<IVehicleService, FakeVehicleService>();
             services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
+
+            services.Configure<FakeVehicleOptions>(Configuration.GetSection("Vehicles"));
+
+            //services.Configure<FakeVehicleOptions>
+            //    (options => Options.Create(new FakeVehicleOptions { Count = 10 }));
 
             // dotnet add package NSwag.AspNetCore
             services.AddOpenApiDocument(options =>            {
@@ -45,13 +64,22 @@ namespace Teldat.Vehicles.Api
             services.AddControllers();
         }
 
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsTesting())
+            {
+
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            string message = Configuration["Message"];
+            int count = int.Parse(Configuration["Vehicles:Count"]);
 
             // generowanie dokumentacji OpenAPI
             app.UseOpenApi();
@@ -69,4 +97,10 @@ namespace Teldat.Vehicles.Api
             });
         }
     }
+
+    public static class IWebHostEnvironmentExtensions
+    {
+        public static bool IsTesting(this IWebHostEnvironment env) => env.EnvironmentName == "Testing";
+    }
+
 }

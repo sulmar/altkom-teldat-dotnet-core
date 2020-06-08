@@ -23,11 +23,11 @@ namespace Teldat.Vehicles.Api.Controllers
         }
 
         // GET https://localhost:5000/api/vehicles
-        //[HttpGet]
-        //public Task<IEnumerable<Vehicle>> Get()
-        //{
-        //    return vehicleService.Get();
-        //}
+        [HttpGet]
+        public Task<IEnumerable<Vehicle>> Get()
+        {
+            return vehicleService.Get();
+        }
 
         // GET https://localhost:5000/api/vehicles
         //[HttpGet]
@@ -105,13 +105,13 @@ namespace Teldat.Vehicles.Api.Controllers
         //    return Ok();
         //}
 
-        [HttpGet]
-        public async Task<IActionResult> Get(
-            [Required][Range(-90, 90)] double lat,
-            [Required][Range(-180, 180)] double lng, double range = 100)
-        {
-            return Ok();
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Get(
+        //    [Required][Range(-90, 90)] double lat,
+        //    [Required][Range(-180, 180)] double lng, double range = 100)
+        //{
+        //    return Ok();
+        //}
 
         // GET https://localhost:5000/api/vehicles?lat=58.43&lng=21.05&range=100
 

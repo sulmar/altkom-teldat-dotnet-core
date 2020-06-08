@@ -34,7 +34,14 @@ namespace Teldat.Vehicles.Api
             services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
 
             // dotnet add package NSwag.AspNetCore
-            services.AddSwaggerDocument();
+            services.AddOpenApiDocument(options =>
+            {
+                options.Title = "Vehicles API";
+                options.DocumentName = ".NET Core 3.1 Web API";
+                options.Version = "v1";
+                options.Description = "Demonstrating auto-generated API documentation";
+            });
+
 
             services.AddControllers();
         }

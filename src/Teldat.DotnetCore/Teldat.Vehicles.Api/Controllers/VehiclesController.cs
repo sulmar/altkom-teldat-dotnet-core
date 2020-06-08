@@ -12,7 +12,7 @@ using Teldat.Vehicles.Domain.Models;
 namespace Teldat.Vehicles.Api.Controllers
 {
     [Route("api/[controller]")]    
-    // [ApiController]
+    [ApiController]
     public class VehiclesController : ControllerBase
     {
         private readonly IVehicleService vehicleService;
@@ -37,17 +37,36 @@ namespace Teldat.Vehicles.Api.Controllers
         //}
 
         // GET https://localhost:5000/api/vehicles/10
+        //[HttpGet("{id}", Name = "GetById")]
+        //[ProducesResponseType(typeof(Vehicle), StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> Get(int id)
+        //{
+        //    Vehicle vehicle = await vehicleService.Get(id);
+
+        //    if(vehicle==null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(vehicle);
+        //}
+
+        // GET https://localhost:5000/api/vehicles/10
         [HttpGet("{id}", Name = "GetById")]
-        public async Task<IActionResult> Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<Vehicle>> Get(int id)
         {
             Vehicle vehicle = await vehicleService.Get(id);
 
-            if(vehicle==null)
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            return Ok(vehicle);
+            return vehicle;
         }
 
         // GET https://localhost:5000/api/vehicles/10/members
@@ -79,6 +98,8 @@ namespace Teldat.Vehicles.Api.Controllers
 
         // POST https://localhost:5000/api/vehicles
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> Post([FromBody] Vehicle vehicle)
         {
             await vehicleService.Add(vehicle);
@@ -88,6 +109,8 @@ namespace Teldat.Vehicles.Api.Controllers
 
         // PUT https://localhost:5000/api/vehicles/10
         [HttpPut("{id}")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]        
         public async Task<IActionResult> Put(int id, [FromBody] Vehicle vehicle)
         {
             if (id != vehicle.Id)
@@ -100,6 +123,9 @@ namespace Teldat.Vehicles.Api.Controllers
 
         // DELETE https://localhost:5000/api/vehicles/10
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> Delete(int id)
         {
             Vehicle vehicle = await vehicleService.Get(id);

@@ -33,6 +33,9 @@ namespace Teldat.Vehicles.Api
             services.AddSingleton<IVehicleService, FakeVehicleService>();
             services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
 
+            // dotnet add package NSwag.AspNetCore
+            services.AddSwaggerDocument();
+
             services.AddControllers();
         }
 
@@ -43,6 +46,10 @@ namespace Teldat.Vehicles.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // generowanie dokumentacji OpenAPI
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
 

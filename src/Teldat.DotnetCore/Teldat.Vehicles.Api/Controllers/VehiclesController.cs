@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,7 +55,9 @@ namespace Teldat.Vehicles.Api.Controllers
         //}
 
         // GET https://localhost:5000/api/vehicles/10
-        [HttpGet("{id:int}", Name = "GetById")]
+        //[HttpGet("{id:int}", Name = "GetById")]
+        [HttpGet("{id:int}.{format?}", Name = "GetById")]
+        [FormatFilter]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -128,9 +131,39 @@ namespace Teldat.Vehicles.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Post([FromBody] Vehicle vehicle)
         {
+            // realizowane przez [ApiController]
+            //if (!this.ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}    
+
             await vehicleService.Add(vehicle);
 
             return CreatedAtRoute("GetById", new { Id = vehicle.Id }, vehicle);
+        }
+
+        // HEAD https://localhost:5000/api/vehicles/10
+        [HttpHead("{id:int}")]
+        public async Task<IActionResult> Exists(int id)
+        {
+            Vehicle vehicle = await vehicleService.Get(id);
+
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+
+        // Json Patch http://jsonpatch.com/
+        // [AcceptVerbs("Get, Head")]
+        // [AcceptVerbs("Patch, Post")]
+        [HttpPatch]
+        public async Task<IActionResult> Patch([FromBody] Vehicle vehicle)
+        {
+            throw new NotImplementedException();
         }
 
         // PUT https://localhost:5000/api/vehicles/10

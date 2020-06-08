@@ -61,7 +61,7 @@ namespace Teldat.Vehicles.Api
             });
 
 
-            services.AddControllers();
+            services.AddControllers().AddXmlSerializerFormatters();
         }
 
 

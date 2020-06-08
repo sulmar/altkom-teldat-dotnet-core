@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Teldat.DotnetCore.Models\Teldat.Vehicles.Domain.csproj" />
     <ProjectReference Include="..\Teldat.Vehicles.Domain\Teldat.Vehicles.Domain.csproj" />
   </ItemGroup>
 

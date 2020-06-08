@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="29.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Teldat.DotnetCore.Models\Teldat.Vehicles.Domain.csproj" />
+    <ProjectReference Include="..\Teldat.Vehicles.Domain\Teldat.Vehicles.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

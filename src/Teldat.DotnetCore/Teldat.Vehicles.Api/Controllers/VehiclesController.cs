@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -53,13 +54,26 @@ namespace Teldat.Vehicles.Api.Controllers
         //}
 
         // GET https://localhost:5000/api/vehicles/10
-        [HttpGet("{id}", Name = "GetById")]
+        [HttpGet("{id:int}", Name = "GetById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<Vehicle>> Get(int id)
         {
             Vehicle vehicle = await vehicleService.Get(id);
+
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            return vehicle;
+        }
+
+        [HttpGet("{vin}")]
+        public async Task<ActionResult<Vehicle>> Get(string vin)
+        {
+            Vehicle vehicle = await vehicleService.Get(vin);
 
             if (vehicle == null)
             {
@@ -81,8 +95,20 @@ namespace Teldat.Vehicles.Api.Controllers
 
         // GET https://localhost:5000/api/vehicles?lat=58.43&lng=21.05&range=100
 
+
+        //[HttpGet]
+        //public async Task<IActionResult> Get(
+        //    [RequiredFromQuery] double lat,
+        //    [RequiredFromQuery] double lng,
+        //    double range = 100)
+        //{
+        //    return Ok();
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> Get([RequiredFromQuery] double lat, [RequiredFromQuery] double lng, double range = 100)
+        public async Task<IActionResult> Get(
+            [Required][Range(-90, 90)] double lat,
+            [Required][Range(-180, 180)] double lng, double range = 100)
         {
             return Ok();
         }
@@ -90,7 +116,7 @@ namespace Teldat.Vehicles.Api.Controllers
         // GET https://localhost:5000/api/vehicles?lat=58.43&lng=21.05&range=100
 
         //[HttpGet]
-        //public async Task<IActionResult> Get([FromQuery] Location location)
+        //public async Task<IActionResult> Get([RequiredFromQuery] Location location)
         //{
         //    return Ok();
         //}

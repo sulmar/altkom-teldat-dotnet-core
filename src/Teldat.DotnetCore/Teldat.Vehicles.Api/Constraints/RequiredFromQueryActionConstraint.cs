@@ -8,7 +8,21 @@ using System.Threading.Tasks;
 
 namespace Teldat.Vehicles.Api.Constraints
 {
-    public class RequiredFromQueryActionConstraint : IActionConstraint
+    public class EmptyFromQueryActionConstraint : IActionConstraint
+    {
+        public int Order => 999;
+
+        public bool Accept(ActionConstraintContext context)
+        {
+            return !context.RouteContext.HttpContext.Request.Query.Any();
+        }
+    }
+
+    public class EmptyFromQueryAttribute : EmptyFromQueryActionConstraint
+    {
+    }
+
+     public class RequiredFromQueryActionConstraint : IActionConstraint
     {
         private readonly string parameter;
 

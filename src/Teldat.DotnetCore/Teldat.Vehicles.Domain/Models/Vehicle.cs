@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string Model { get; set; }
+        public string Vin { get; set; }
         public short ProductionYear { get; set; }
         public bool IsRemoved { get; set; }
     }

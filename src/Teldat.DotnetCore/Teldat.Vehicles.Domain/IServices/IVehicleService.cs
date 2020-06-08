@@ -13,5 +13,7 @@ namespace Teldat.Vehicles.Domain.IServices
         Task Add(Vehicle vehicle);
         Task Update(Vehicle vehicle);
         Task Remove(int id);
+
+        Task<Vehicle> Get(string vin);
     }
 }

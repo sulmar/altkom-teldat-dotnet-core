@@ -35,6 +35,11 @@ namespace Teldat.Vehicles.Infrastructure.FakeServices
             return Task.FromResult(vehicles.SingleOrDefault(v => v.Id == id));
         }
 
+        public Task<Vehicle> Get(string vin)
+        {
+            return Task.FromResult(vehicles.SingleOrDefault(v => v.Vin == vin));
+        }
+
         public async Task Remove(int id)
         {
             var vehicle = await Get(id);

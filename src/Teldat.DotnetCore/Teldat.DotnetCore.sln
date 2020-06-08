@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teldat.Vehicles.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teldat.Vehicles.Domain", "Teldat.Vehicles.Domain\Teldat.Vehicles.Domain.csproj", "{D41CB3E4-046C-420B-BD97-E693C4EEA6B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Vehicles.Api", "Teldat.Vehicles.Api\Teldat.Vehicles.Api.csproj", "{9EE2664F-9254-4AE3-A4B9-A81338F42EAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{D41CB3E4-046C-420B-BD97-E693C4EEA6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D41CB3E4-046C-420B-BD97-E693C4EEA6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D41CB3E4-046C-420B-BD97-E693C4EEA6B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EE2664F-9254-4AE3-A4B9-A81338F42EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE2664F-9254-4AE3-A4B9-A81338F42EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EE2664F-9254-4AE3-A4B9-A81338F42EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EE2664F-9254-4AE3-A4B9-A81338F42EAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9235BF24-CD0D-4669-A5CF-9E6CF4C50803} = {15AEBB19-07F4-47D4-A3E1-11C2EA109436}
 		{D41CB3E4-046C-420B-BD97-E693C4EEA6B3} = {15AEBB19-07F4-47D4-A3E1-11C2EA109436}
+		{9EE2664F-9254-4AE3-A4B9-A81338F42EAA} = {15AEBB19-07F4-47D4-A3E1-11C2EA109436}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA497193-D02A-43EA-A72C-55796E0F9C14}

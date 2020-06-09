@@ -50,6 +50,12 @@ namespace Teldat.Vehicles.Api
             // dotnet add package MediatR.Extensions.Microsoft.DependencyInjection
             services.AddMediatR(typeof(Startup).Assembly);
 
+            services.AddHttpClient("GitHub", options =>
+            {
+                options.BaseAddress = new Uri("https://api.github.com");
+                options.DefaultRequestHeaders.Add("Accept", "application/json");                
+            });
+
             //services.AddSingleton<IVehicleService, FakeVehicleService>();
             //services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
             //services.AddScoped<IMessageSender, SmsMessageSender>();

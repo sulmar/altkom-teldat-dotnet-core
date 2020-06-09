@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Teldat.Vehicles.Api.Constraints;
@@ -69,6 +70,7 @@ namespace Teldat.Vehicles.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<Vehicle>> Get([FromRoute] GetVehicleRequest request)
         {
+            
             // Vehicle vehicle = await vehicleService.Get(id);
 
             Vehicle vehicle = await mediator.Send(request);
@@ -205,8 +207,10 @@ namespace Teldat.Vehicles.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, [FromServices] IHttpClientFactory httpClientFactory)
         {
+            HttpClient client = httpClientFactory.CreateClient("GitHub");            
+
             Vehicle vehicle = await vehicleService.Get(id);
 
             if (vehicle == null)

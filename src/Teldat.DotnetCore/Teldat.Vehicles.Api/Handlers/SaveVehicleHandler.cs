@@ -19,6 +19,7 @@ namespace Teldat.Vehicles.Api.Handlers
     //    }
     //}
 
+
     public class SaveVehicleRequestHandler : IRequestHandler<SaveVehicleEvent, bool>
     {
         private readonly IVehicleService vehicleService;

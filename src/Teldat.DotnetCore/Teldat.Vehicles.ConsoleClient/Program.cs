@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using ServiceStack;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,24 @@ namespace Teldat.Vehicles.ConsoleClient
 {
     class Program
     {
+        // dotnet add package Microsoft.Extensions.DependencyInjection
         static async Task Main(string[] args)
         {
             Console.WriteLine("Rest API Console Client");
+
+            IServiceCollection services = new ServiceCollection();
+            services.AddSingleton<IVehicleService, ServiceStackVehicleService>();                
+
+            var serviceProvider = services.BuildServiceProvider();
 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5000");
 
             // IVehicleService vehicleService = new ApiVehicleService(client);
-            IVehicleService vehicleService = new ServiceStackVehicleService("http://localhost:5000");
+            // IVehicleService vehicleService = new ServiceStackVehicleService();
+
+            IVehicleService vehicleService = serviceProvider.GetRequiredService<IVehicleService>();
+
             IEnumerable <Vehicle> vehicles = await vehicleService.Get();
 
             foreach (var vehicle in vehicles)
@@ -50,6 +60,13 @@ namespace Teldat.Vehicles.ConsoleClient
     public class ServiceStackVehicleService : IVehicleService
     {
         private readonly string baseUri;
+
+
+        public ServiceStackVehicleService()
+            : this("http://localhost:5000")
+        {
+
+        }
 
         public ServiceStackVehicleService(string baseUri)
         {

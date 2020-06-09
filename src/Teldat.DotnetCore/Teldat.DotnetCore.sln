@@ -13,9 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teldat.Vehicles.Api", "Teld
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Radios", "Radios", "{CAD0EAFF-11C3-4722-B10D-ACDEF90DCD1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Radios.Api", "Teldat.Radios.Api\Teldat.Radios.Api.csproj", "{6BCD6EEE-1241-496A-8BFC-FA751232E40F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teldat.Radios.Api", "Teldat.Radios.Api\Teldat.Radios.Api.csproj", "{6BCD6EEE-1241-496A-8BFC-FA751232E40F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Vehicles.ConsoleClient", "Teldat.Vehicles.ConsoleClient\Teldat.Vehicles.ConsoleClient.csproj", "{E07D14D7-097E-40F1-8625-72DBD424FEC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teldat.Vehicles.ConsoleClient", "Teldat.Vehicles.ConsoleClient\Teldat.Vehicles.ConsoleClient.csproj", "{E07D14D7-097E-40F1-8625-72DBD424FEC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messages", "Messages", "{A0EE946F-0771-43C6-9445-694227A8BD17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Messages.Api", "Teldat.Messages.Api\Teldat.Messages.Api.csproj", "{80E5CE38-68EF-48CE-A33E-2A7587C9F534}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Messages.SenderConsoleClient", "Teldat.Messages.SenderConsoleClient\Teldat.Messages.SenderConsoleClient.csproj", "{BADC2A61-B50A-4C07-A543-2F7A71B3B877}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Messages.ReceiverConsoleClient", "Teldat.Messages.ReceiverConsoleClient\Teldat.Messages.ReceiverConsoleClient.csproj", "{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +51,18 @@ Global
 		{E07D14D7-097E-40F1-8625-72DBD424FEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E07D14D7-097E-40F1-8625-72DBD424FEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E07D14D7-097E-40F1-8625-72DBD424FEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80E5CE38-68EF-48CE-A33E-2A7587C9F534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E5CE38-68EF-48CE-A33E-2A7587C9F534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E5CE38-68EF-48CE-A33E-2A7587C9F534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E5CE38-68EF-48CE-A33E-2A7587C9F534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BADC2A61-B50A-4C07-A543-2F7A71B3B877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BADC2A61-B50A-4C07-A543-2F7A71B3B877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BADC2A61-B50A-4C07-A543-2F7A71B3B877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BADC2A61-B50A-4C07-A543-2F7A71B3B877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +73,9 @@ Global
 		{9EE2664F-9254-4AE3-A4B9-A81338F42EAA} = {15AEBB19-07F4-47D4-A3E1-11C2EA109436}
 		{6BCD6EEE-1241-496A-8BFC-FA751232E40F} = {CAD0EAFF-11C3-4722-B10D-ACDEF90DCD1E}
 		{E07D14D7-097E-40F1-8625-72DBD424FEC0} = {15AEBB19-07F4-47D4-A3E1-11C2EA109436}
+		{80E5CE38-68EF-48CE-A33E-2A7587C9F534} = {A0EE946F-0771-43C6-9445-694227A8BD17}
+		{BADC2A61-B50A-4C07-A543-2F7A71B3B877} = {A0EE946F-0771-43C6-9445-694227A8BD17}
+		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B} = {A0EE946F-0771-43C6-9445-694227A8BD17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA497193-D02A-43EA-A72C-55796E0F9C14}

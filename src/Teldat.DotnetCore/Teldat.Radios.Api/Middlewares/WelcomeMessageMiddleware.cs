@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace Teldat.Radios.Api.Middlewares
@@ -11,7 +12,14 @@ namespace Teldat.Radios.Api.Middlewares
         {
             return context.Response.WriteAsync("Hello Radio!");
         }
+    }
 
+    public static class WelcomeMessageMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseWelcomeMessage(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<WelcomeMessageMiddleware>();
+        }
     }
 
 }

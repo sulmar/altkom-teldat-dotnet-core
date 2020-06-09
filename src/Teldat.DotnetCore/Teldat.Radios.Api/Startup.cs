@@ -24,6 +24,8 @@ namespace Teldat.Radios.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            #region Podpinanie warstw poœrednich za pomoc¹ metod Use() i Run()
+
             // Logger
             //app.Use(async (context, next) =>
             //   {
@@ -33,15 +35,6 @@ namespace Teldat.Radios.Api
 
             //       Trace.WriteLine($"{context.Response.StatusCode}");
             //   });
-
-            // app.UseMiddleware<LoggerMiddleware>();
-
-            app.UseMiddleware<ElapsedTimeMiddleware>();
-            app.UseLogger();
-            app.UseSecurity();
-            // app.UseMiddleware<AuthorizationMiddleware>();
-            app.UseMiddleware<WelcomeMessageMiddleware>();
-
 
             // Authorization
             //app.Use(async (context, next) =>
@@ -56,7 +49,38 @@ namespace Teldat.Radios.Api
             //    }
             //});
 
+            // Welcome Message
             //app.Run(context => context.Response.WriteAsync("Hello Radio!"));
+
+            // Elapsed Time
+            //app.Use(async (context, next) =>
+            //{
+            //    var sw = new Stopwatch();
+            //    sw.Start();
+
+            //    await next();
+
+            //    ILogger logger = context.RequestServices.GetRequiredService<ILogger>();
+
+            //    logger.LogInformation($"{context.Request.Path} executed in {sw.ElapsedMilliseconds}ms");
+            //});
+
+            #endregion
+
+            #region Podpinanie warstw poœrednich za pomoc¹ metody UseMiddleware()
+            // app.UseMiddleware<ElapsedTimeMiddleware>();
+            // app.UseMiddleware<LoggerMiddleware>();
+            // app.UseMiddleware<AuthorizationMiddleware>();
+            // app.UseMiddleware<WelcomeMessageMiddleware>();
+            #endregion
+
+            #region Podpinanie warstw poœrednich za pomoc¹ metod rozszerzaj¹ych
+            app.UseElapsedTime();
+            app.UseLogger();
+            app.UseSecurity();
+            app.UseWelcomeMessage();
+            #endregion
+
         }
     }
 }

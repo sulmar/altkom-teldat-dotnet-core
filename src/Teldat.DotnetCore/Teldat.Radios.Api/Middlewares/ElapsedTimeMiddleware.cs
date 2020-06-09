@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -23,6 +24,14 @@ namespace Teldat.Radios.Api.Middlewares
             await next(context);
             logger.LogInformation($"{context.Request.Path} executed in {sw.ElapsedMilliseconds}ms");
             
+        }
+    }
+
+    public static class ElapsedTimeMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseElapsedTime(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<ElapsedTimeMiddleware>();
         }
     }
 

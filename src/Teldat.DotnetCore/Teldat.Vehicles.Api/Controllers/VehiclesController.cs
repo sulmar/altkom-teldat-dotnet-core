@@ -67,9 +67,11 @@ namespace Teldat.Vehicles.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<Vehicle>> Get(int id)
+        public async Task<ActionResult<Vehicle>> Get([FromRoute] GetVehicleRequest request)
         {
-            Vehicle vehicle = await vehicleService.Get(id);
+            // Vehicle vehicle = await vehicleService.Get(id);
+
+            Vehicle vehicle = await mediator.Send(request);
 
             if (vehicle == null)
             {
@@ -150,7 +152,9 @@ namespace Teldat.Vehicles.Api.Controllers
             //await vehicleService.Add(vehicle);
             //await messageSender.SendAsync($"Vehicle {vehicle.Model} was added");            
 
-            await mediator.Publish(new AddVehicleEvent(vehicle));
+            // await mediator.Publish(new AddVehicleEvent(vehicle));
+
+            bool result = await mediator.Send(new SaveVehicleEvent(vehicle));
 
             return CreatedAtRoute("GetById", new { Id = vehicle.Id }, vehicle);
         }

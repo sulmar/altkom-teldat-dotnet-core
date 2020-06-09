@@ -18,6 +18,7 @@ namespace Teldat.Vehicles.Api.Controllers
     public class VehiclesController : ControllerBase
     {
         private readonly IVehicleService vehicleService;
+
         public VehiclesController(IVehicleService vehicleService)
         {
             this.vehicleService = vehicleService;
@@ -129,7 +130,9 @@ namespace Teldat.Vehicles.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Post([FromBody] Vehicle vehicle)
+        public async Task<IActionResult> Post(
+           [FromBody] Vehicle vehicle, 
+           [FromServices] IMessageSender messageSender )
         {
             // realizowane przez [ApiController]
             //if (!this.ModelState.IsValid)
@@ -139,11 +142,16 @@ namespace Teldat.Vehicles.Api.Controllers
 
             await vehicleService.Add(vehicle);
 
+            await messageSender.SendAsync($"Vehicle {vehicle.Model} was added");
+
             return CreatedAtRoute("GetById", new { Id = vehicle.Id }, vehicle);
         }
 
         // HEAD https://localhost:5000/api/vehicles/10
         [HttpHead("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> Exists(int id)
         {
             Vehicle vehicle = await vehicleService.Get(id);
@@ -153,7 +161,7 @@ namespace Teldat.Vehicles.Api.Controllers
                 return NotFound();
             }
 
-            return NoContent();
+            return Ok();
         }
 
 
@@ -201,6 +209,8 @@ namespace Teldat.Vehicles.Api.Controllers
 
         // POST https://localhost:5000/api/vehicles/upload
         [HttpPost("upload")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesDefaultResponseType]
         public async Task<IActionResult> Upload(IList<IFormFile> files)
         {
             foreach (var file in files)

@@ -47,6 +47,8 @@ namespace Teldat.Vehicles.Api
             services.AddSingleton<IVehicleService, FakeVehicleService>();
             services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
 
+            services.AddScoped<IMessageSender, SmsMessageSender>();
+
             services.Configure<FakeVehicleOptions>(Configuration.GetSection("Vehicles"));
 
             //services.Configure<FakeVehicleOptions>
@@ -83,7 +85,7 @@ namespace Teldat.Vehicles.Api
 
             // generowanie dokumentacji OpenAPI
             app.UseOpenApi();
-            app.UseSwaggerUi3();
+            app.UseSwaggerUi3();            
 
             app.UseHttpsRedirection();
 

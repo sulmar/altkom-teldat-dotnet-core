@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bogus;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Teldat.Vehicles.Api.Services;
 using Teldat.Vehicles.Domain.IServices;
 using Teldat.Vehicles.Domain.Models;
 using Teldat.Vehicles.Infrastructure.Fakers;
@@ -44,10 +47,15 @@ namespace Teldat.Vehicles.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IVehicleService, FakeVehicleService>();
-            services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
+            // dotnet add package MediatR.Extensions.Microsoft.DependencyInjection
+            services.AddMediatR(typeof(Startup).Assembly);
 
-            services.AddScoped<IMessageSender, SmsMessageSender>();
+            //services.AddSingleton<IVehicleService, FakeVehicleService>();
+            //services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
+            //services.AddScoped<IMessageSender, SmsMessageSender>();
+
+            services.AddFakeServices();
+            // services.AddDbServices();
 
             services.Configure<FakeVehicleOptions>(Configuration.GetSection("Vehicles"));
 
@@ -95,6 +103,7 @@ namespace Teldat.Vehicles.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGet("/dashboard", context => context.Response.WriteAsync("<html><h1>Dashboard</h1></html>"));
                 endpoints.MapControllers();
             });
         }

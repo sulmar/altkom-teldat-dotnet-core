@@ -19,6 +19,7 @@ namespace Teldat.Radios.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,9 +78,61 @@ namespace Teldat.Radios.Api
             #region Podpinanie warstw poœrednich za pomoc¹ metod rozszerzaj¹ych
             app.UseElapsedTime();
             app.UseLogger();
-            app.UseSecurity();
-            app.UseWelcomeMessage();
+            // app.UseSecurity();
+
             #endregion
+
+
+            #region Mapy
+
+            // app.Map("/dashboard", options => options.Run(context => context.Response.WriteAsync("Dashboard")));
+
+            //app.Map("/radios", node =>
+            //{              
+            //    node.Map("/offline",
+            //        options => options.Run(context => context.Response.WriteAsync("offline radios")));
+
+            //    node.Map("/online",
+            //        options => options.Run(context => context.Response.WriteAsync("online radios")));
+
+            //    node.Map(string.Empty,
+            //        options => options.Run(context => context.Response.WriteAsync("All Radios")));
+            //});
+
+            // app.UseRadios();
+
+            #endregion
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDashboard("/dashboard");
+
+                endpoints.MapGet("/radios", async context => await context.Response.WriteAsync("All Radios"));
+                endpoints.MapGet("/radios/offline", async context => await context.Response.WriteAsync("All offline"));
+                endpoints.MapPost("/radios", async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status201Created;
+                    await context.Response.WriteAsync("Created radio");
+                });
+                endpoints.MapGet("/radios/{id:int}", async context =>
+                {
+                    if (context.Request.RouteValues.TryGetValue("id", out object id))
+                    {
+                        await context.Response.WriteAsync($"Radio {id}");
+                    }
+                });
+            });
+
+
+
+
+            // Endpoints
+
+
+
+            app.UseWelcomeMessage();
 
         }
     }

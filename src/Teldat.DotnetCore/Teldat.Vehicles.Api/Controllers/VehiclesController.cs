@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Teldat.Vehicles.Api.Constraints;
+using Teldat.Vehicles.Api.Events;
 using Teldat.Vehicles.Domain.IServices;
 using Teldat.Vehicles.Domain.Models;
 
@@ -18,10 +21,12 @@ namespace Teldat.Vehicles.Api.Controllers
     public class VehiclesController : ControllerBase
     {
         private readonly IVehicleService vehicleService;
+        private readonly IMediator mediator;
 
-        public VehiclesController(IVehicleService vehicleService)
+        public VehiclesController(IVehicleService vehicleService, IMediator mediator)
         {
             this.vehicleService = vehicleService;
+            this.mediator = mediator;
         }
 
         // GET https://localhost:5000/api/vehicles
@@ -140,9 +145,12 @@ namespace Teldat.Vehicles.Api.Controllers
             //    return BadRequest(ModelState);
             //}    
 
-            await vehicleService.Add(vehicle);
+            // dotnet add package MediatR
 
-            await messageSender.SendAsync($"Vehicle {vehicle.Model} was added");
+            //await vehicleService.Add(vehicle);
+            //await messageSender.SendAsync($"Vehicle {vehicle.Model} was added");            
+
+            await mediator.Publish(new AddVehicleEvent(vehicle));
 
             return CreatedAtRoute("GetById", new { Id = vehicle.Id }, vehicle);
         }

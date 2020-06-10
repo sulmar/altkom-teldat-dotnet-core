@@ -1,0 +1,24 @@
+﻿@page
+@model Teldat.Vehicles.RazorPages.Pages.Vehicles.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table>
+
+    <tbody>
+
+        @foreach (var vehicle in Model.Vehicles)
+        {
+        <tr>
+            <td>@Html.DisplayFor(m => vehicle.Model)</td>
+            <td>@Html.DisplayFor(m => vehicle.ProductionYear)</td>
+            <td>@Html.DisplayFor(m => vehicle.Vin)</td>
+        </tr>
+        
+        }
+
+    </tbody>
+</table>

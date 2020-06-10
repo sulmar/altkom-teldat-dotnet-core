@@ -61,7 +61,7 @@ namespace Teldat.Vehicles.Api
             //services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
             //services.AddScoped<IMessageSender, SmsMessageSender>();
 
-            // services.AddFakeServices();
+            //services.AddFakeServices();
             services.AddDbServices(Configuration);
 
             services.Configure<FakeVehicleOptions>(Configuration.GetSection("Vehicles"));

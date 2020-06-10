@@ -22,6 +22,7 @@ namespace Teldat.Vehicles.Infrastructure.Fakers
 
             Ignore(p => p.Driver);
             Ignore(p => p.Passengers);
+            Ignore(p => p.Color);
         }
     }
 }

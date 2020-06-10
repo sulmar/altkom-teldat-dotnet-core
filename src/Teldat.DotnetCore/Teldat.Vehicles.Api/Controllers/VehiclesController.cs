@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -17,6 +18,7 @@ using Teldat.Vehicles.Domain.Models;
 
 namespace Teldat.Vehicles.Api.Controllers
 {
+    // [Authorize]
     [Route("api/[controller]")]    
     [ApiController]
     public class VehiclesController : ControllerBase
@@ -30,10 +32,21 @@ namespace Teldat.Vehicles.Api.Controllers
             this.mediator = mediator;
         }
 
+        // [Authorize]
         // GET https://localhost:5000/api/vehicles
         [HttpGet]
         public Task<IEnumerable<Vehicle>> Get()
         {
+            //if (!this.User.Identity.IsAuthenticated)
+            //{
+            //    return BadRequest();
+            //}
+
+            if (this.User.IsInRole("Soldier"))
+            {
+
+            }    
+
             return vehicleService.Get();
         }
 

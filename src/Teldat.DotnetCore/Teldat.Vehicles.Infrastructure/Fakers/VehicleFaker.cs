@@ -19,6 +19,9 @@ namespace Teldat.Vehicles.Infrastructure.Fakers
             RuleFor(p => p.Vin, f => f.Vehicle.Vin());
             RuleFor(p => p.ProductionYear, f => f.Random.Short(1950, 2020));
             RuleFor(p => p.IsRemoved, f => f.Random.Bool(0.2f));
+
+            Ignore(p => p.Driver);
+            Ignore(p => p.Passengers);
         }
     }
 }

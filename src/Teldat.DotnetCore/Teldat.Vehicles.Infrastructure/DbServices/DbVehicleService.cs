@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -47,6 +48,7 @@ namespace Teldat.Vehicles.Infrastructure.DbServices
     public class DbVehicleService : IVehicleService
     {
         private readonly VehiclesContext context;
+       // private readonly ILogger<DbVehicleService> 
 
         public DbVehicleService(VehiclesContext context)
         {
@@ -55,7 +57,11 @@ namespace Teldat.Vehicles.Infrastructure.DbServices
 
         public async Task Add(Vehicle vehicle)
         {
+             //context.Entry(vehicle).State
+
             await context.Vehicles.AddAsync(vehicle);
+
+
             await context.SaveChangesAsync();
         }
 

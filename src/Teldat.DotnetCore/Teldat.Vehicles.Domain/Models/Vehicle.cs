@@ -15,7 +15,7 @@ namespace Teldat.Vehicles.Domain.Models
         [StringLength(100, MinimumLength = 2)]        
         public string Model { get; set; }
         public string Vin { get; set; }
-        public Person Driver { get; set; }
+        public Soldier Driver { get; set; }
         public IEnumerable<Person> Passengers { get; set; }
 
         [Range(1950, 2100)]

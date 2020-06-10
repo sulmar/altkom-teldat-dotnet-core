@@ -32,7 +32,7 @@ namespace Teldat.Messages.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<AlarmsHub>("/signalr/alarms");
+                endpoints.MapHub<StrongTypedAlarmsHub>("/signalr/alarms");
 
                 endpoints.MapGet("/", async context =>
                 {

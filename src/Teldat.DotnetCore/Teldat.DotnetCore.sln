@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Messages.SenderConso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Messages.ReceiverConsoleClient", "Teldat.Messages.ReceiverConsoleClient\Teldat.Messages.ReceiverConsoleClient.csproj", "{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teldat.Messages.Domain", "Teldat.Messages.Domain\Teldat.Messages.Domain.csproj", "{2AACD78B-EDF4-4351-BEC5-98569E7FFFFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AACD78B-EDF4-4351-BEC5-98569E7FFFFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AACD78B-EDF4-4351-BEC5-98569E7FFFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AACD78B-EDF4-4351-BEC5-98569E7FFFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AACD78B-EDF4-4351-BEC5-98569E7FFFFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{80E5CE38-68EF-48CE-A33E-2A7587C9F534} = {A0EE946F-0771-43C6-9445-694227A8BD17}
 		{BADC2A61-B50A-4C07-A543-2F7A71B3B877} = {A0EE946F-0771-43C6-9445-694227A8BD17}
 		{4E35E5DA-A6C5-4DCC-8147-A04E44ECDD7B} = {A0EE946F-0771-43C6-9445-694227A8BD17}
+		{2AACD78B-EDF4-4351-BEC5-98569E7FFFFB} = {A0EE946F-0771-43C6-9445-694227A8BD17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FA497193-D02A-43EA-A72C-55796E0F9C14}

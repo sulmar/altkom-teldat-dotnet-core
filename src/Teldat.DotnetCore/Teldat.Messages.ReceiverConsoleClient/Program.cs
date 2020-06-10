@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Threading.Tasks;
+using Teldat.Messages.Domain.Models;
 
 namespace Teldat.Messages.ReceiverConsoleClient
 {
@@ -25,7 +26,14 @@ namespace Teldat.Messages.ReceiverConsoleClient
 
             Console.WriteLine("Connected.");
 
+            Console.Write("Type unit:");
+            string unit = Console.ReadLine();
+
+            await connection.SendAsync("JoinToUnit", unit);
+
             connection.On<string>("Alarm", message => Console.WriteLine($"Received {message}"));
+
+            connection.On<Command>("Command", command => Console.WriteLine($"Received {command.Title} -> {command.Content}"));
 
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();

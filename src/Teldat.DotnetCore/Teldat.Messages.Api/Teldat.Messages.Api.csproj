@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Teldat.Messages.Domain\Teldat.Messages.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using Bogus;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Teldat.Messages.Domain.Models;
 
 namespace Teldat.Messages.SenderConsoleClient
 {
@@ -20,15 +23,31 @@ namespace Teldat.Messages.SenderConsoleClient
 
             HubConnection connection = new HubConnectionBuilder()
                 .WithUrl(url)
+                .WithAutomaticReconnect()
                 .Build();
 
             await connection.StartAsync();
 
+            // dotnet add package Bogus
+
+            IEnumerable<Command> commands = new Faker<Command>()
+                .RuleFor(p => p.Title, f => f.Lorem.Sentence())
+                .RuleFor(p => p.Content, f => f.Lorem.Paragraph())
+                .GenerateForever();
+
             Console.WriteLine("Connected.");
 
-            while (true)
+            Console.Write("Type unit:");
+            string unit = Console.ReadLine();
+
+            await connection.SendAsync("JoinToUnit", unit);
+
+            foreach(Command command in commands)
             {
-                await connection.SendAsync("SendAlarm", "Fire!");
+                // await connection.SendAsync("SendAlarm", "Fire!");
+                command.ToUnit = unit;
+                await connection.SendAsync("SendCommand", command);
+                Console.WriteLine($"Sent command {command.Title}");
 
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }

@@ -83,8 +83,6 @@ namespace Teldat.Vehicles.Infrastructure.DbServices
 
             //var entities = context.ChangeTracker.Entries().ToList();
 
-          
-
             var entities2 = context.ChangeTracker.Entries().ToList();
 
             LogState(vehicle);

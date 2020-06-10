@@ -12,11 +12,32 @@ using Teldat.Vehicles.Infrastructure.DbServices;
 
 namespace Teldat.Vehicles.Api
 {
+    public static class EFCoreExtensions
+    {
+        public static IHost MigrateDbContext<TContext>(this IHost host)
+            where TContext : DbContext
+        {
+            var scope = host.Services.CreateScope();
+            var context = scope.ServiceProvider.GetService<TContext>();
+
+            context.Database.EnsureCreated();
+            // await context.Database.Migrate();
+
+            return host;
+        }
+
+    }
+
     public class Program
     {
         public static void Main(string[] args)
         {
+            CreateHostBuilder(args).Build().MigrateDbContext<VehiclesContext>().Run();
+
+            /* 
             IHost host = CreateHostBuilder(args).Build();
+
+            host.MigrateDbContext<VehiclesContext>();
 
             // await host.MigrateDbContext<VehiclesContext>();
 
@@ -26,6 +47,8 @@ namespace Teldat.Vehicles.Api
             //context.Database.Migrate();
                        
             host.Run();
+
+            */
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

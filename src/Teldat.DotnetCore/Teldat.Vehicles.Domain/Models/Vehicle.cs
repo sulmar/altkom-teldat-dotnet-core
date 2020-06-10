@@ -20,8 +20,17 @@ namespace Teldat.Vehicles.Domain.Models
 
         [Range(1950, 2100)]
         public short ProductionYear { get; set; }
+        public string Color { get; set; }
         public bool IsRemoved { get; set; }
     }
+
+
+    public class Address
+    {
+        public string City { get; set; }
+        public string Street { get; set; }
+    }
+
 
     public class Civil : Person
     {
@@ -46,5 +55,6 @@ namespace Teldat.Vehicles.Domain.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public Address HomeAddress { get; set; }
     }
 }

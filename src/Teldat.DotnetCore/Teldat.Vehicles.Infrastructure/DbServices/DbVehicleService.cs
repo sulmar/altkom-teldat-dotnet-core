@@ -104,7 +104,7 @@ namespace Teldat.Vehicles.Infrastructure.DbServices
 
         public async Task<Vehicle> Get(string vin)
         {
-            return await context.Vehicles.SingleOrDefaultAsync(v => v.Vin == vin);
+            return await context.Vehicles.IgnoreQueryFilters().SingleOrDefaultAsync(v => v.Vin == vin);
         }
 
         public async Task Remove(int id)

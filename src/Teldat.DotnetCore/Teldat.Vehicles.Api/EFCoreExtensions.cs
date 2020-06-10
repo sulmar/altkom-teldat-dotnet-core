@@ -12,8 +12,10 @@ namespace Teldat.Vehicles.Api
             var scope = host.Services.CreateScope();
             var context = scope.ServiceProvider.GetService<TContext>();
 
-            context.Database.EnsureCreated();
-            // await context.Database.Migrate();
+            // context.Database.EnsureCreated();
+
+            // dotnet add package Microsoft.EntityFrameworkCore.Tools w celu Add-Migration itd.
+            context.Database.Migrate();
 
             return host;
         }

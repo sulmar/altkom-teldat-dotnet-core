@@ -8,6 +8,9 @@ namespace Teldat.Vehicles.Domain.Models
     {        
         public int Id { get; set; }
 
+        // shadow property
+        // public int DriverId { get; set; }
+
         [Required]
         [StringLength(100, MinimumLength = 2)]        
         public string Model { get; set; }

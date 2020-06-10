@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Teldat.Vehicles.Api.Services;
 using Teldat.Vehicles.Domain.IServices;
 using Teldat.Vehicles.Domain.Models;
+using Teldat.Vehicles.Infrastructure.DbServices;
 using Teldat.Vehicles.Infrastructure.Fakers;
 using Teldat.Vehicles.Infrastructure.FakeServices;
 
@@ -60,8 +61,8 @@ namespace Teldat.Vehicles.Api
             //services.AddSingleton<Faker<Vehicle>, VehicleFaker>();
             //services.AddScoped<IMessageSender, SmsMessageSender>();
 
-            services.AddFakeServices();
-            // services.AddDbServices();
+            // services.AddFakeServices();
+            services.AddDbServices(Configuration);
 
             services.Configure<FakeVehicleOptions>(Configuration.GetSection("Vehicles"));
 
@@ -78,6 +79,8 @@ namespace Teldat.Vehicles.Api
 
 
             services.AddControllers().AddXmlSerializerFormatters();
+
+            
         }
 
 
@@ -113,7 +116,11 @@ namespace Teldat.Vehicles.Api
                 endpoints.MapControllers();
             });
         }
+
+        
     }
+
+   
 
     public static class IWebHostEnvironmentExtensions
     {

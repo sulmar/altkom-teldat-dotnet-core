@@ -1,16 +1,57 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Teldat.Vehicles.Domain.IServices;
 using Teldat.Vehicles.Domain.Models;
 
 namespace Teldat.Vehicles.Infrastructure.DbServices
 {
+    public class DbSoldiersService : ISoldierService
+    {
+        private readonly VehiclesContext context;
+
+        public DbSoldiersService(VehiclesContext context)
+        {
+            this.context = context;
+        }
+
+        public async Task Add(Soldier entity)
+        {
+            await context.AddAsync(entity);
+
+            await context.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<Soldier>> Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Soldier> Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Remove(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(Soldier entity)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class DbVehicleService : IVehicleService
     {
         private readonly VehiclesContext context;
+
+        public DbVehicleService(VehiclesContext context)
+        {
+            this.context = context;
+        }
 
         public async Task Add(Vehicle vehicle)
         {
